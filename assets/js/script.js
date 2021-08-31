@@ -16,43 +16,65 @@ var timeLeft = 180;
 // Arry which will hold my questions 
 var questionArr = [
     {q: "HTML can be considered the 'skeleton' of a website", c: ["Yes", "No"], a: "Yes"},
-    {q: "This is a test question", c: ["Yes", "No"], a: "No"}
+    {q: "jQuery and Bootstrap are examples of what?", c: ["Sandwiches", "API", "Programming languages", "Lunch"], a: "API"},
+    {q: "Which of these is *NOT* an <img> attribute?", c: ["alt", "width", "src", "href"] , a: "href"},
+    {q: "In the context of Javascript what does 'truthy' mean?", c: ["A value that is considered true when encounter in a Boolean context", "A universal human truth", "Something that is false"], a: "A value that is considered true when encounter in a Boolean context"},
+    {q:  "How do you 'comment' in CSS?", c: ["!-", "//", "#", "/* */"], a: "/* */"}
 ]
 
-function test() {
-    console.log('test')
-}
+// Array which holds initials and scores
 
+
+// counter function which stops when counter reachers 5
 function counter() {
+
+
     if (x < 5) {
-        x++;
+        x++;    
+        console.log(x);
+    } else if (x === 4) {
+        displayHighScores();
     }
 }
 
 // Function to display questions 
 function displayQuestions() {
+
+    if (x === 5) {
+        return;
+    } else  {
    
-
- // Replaces the big text area with the questions 
-    bigText.textContent = questionArr[x].q;
-
-    console.log(questionArr[x].c.length);
+   // Replaces the big text area with the questions 
+   bigText.textContent = questionArr[x].q;
 
     for (var i = 0; i < questionArr[x].c.length; i++) {
         
-        if (questionArr[x].c[i] === questionArr[x].a) {
+         if (questionArr[x].c[i] === questionArr[x].a) {
 
             questionsArea.innerHTML += "<button class='correct'>" + questionArr[x].c[i] + "</button>";
        
         } else { 
             
             questionsArea.innerHTML += "<button class='incorrect'>" + questionArr[x].c[i] + "</button>"; 
-        }
     }
+  }
+ }
 }
+
 
 function displayHighScores() {
 
+    if (x === 5) {
+    bigText.textContent = "Please enter your initials";
+
+    questionsArea.innerHTML += "<input type='text'>";
+    questionsArea.innerHTML += "<input type='text'>";
+
+    correctOrIncorrect.textContent = " "
+
+    } else {
+        return;
+    }
 };
 
 // Timer that counts down from 180 seconds 
@@ -61,6 +83,7 @@ function countdown() {
     // remove the start button 
     startBtn.remove();
 
+    // runs the function which will display questions 
     displayQuestions();
 
     // setInterval()
@@ -79,10 +102,15 @@ function countdown() {
 
 // function that selects and deletes class 'correct' and 'incorrect'
 function deleteQuestions() {
+    // Select the correct class and remove it
     toDeleteEl = document.querySelector(".correct");
-    toDeleteAlsoEl = document.querySelector(".incorrect");
     toDeleteEl.remove();
-    toDeleteAlsoEl.remove();
+
+    // Select *all* incorrect class
+    toDeleteAlsoEl = document.querySelectorAll(".incorrect");
+    for (var i = 0; i <toDeleteAlsoEl.length; i++) {
+        toDeleteAlsoEl[i].remove();
+    }
 };
 
 // function to target dynmicaly generated html elements and give them the 'click' funcationallity
@@ -97,9 +125,10 @@ var taskButtonHandler = function(event) {
   // delete the previous choices 
   if (targetEl.matches('.correct')) {
     correctOrIncorrect.textContent = 'Correct!';
-    counter();
-    displayQuestions();
+    counter();    
     deleteQuestions();
+    displayQuestions();
+    displayHighScores();
   }
 
   // display incorrect
@@ -109,9 +138,10 @@ var taskButtonHandler = function(event) {
   else if (targetEl.matches('.incorrect')) {
     correctOrIncorrect.textContent = "Incorrect!";
     counter();
-    timeLeft = timeLeft - 10;
-    displayQuestions();
+    timeLeft = timeLeft - 10;    
     deleteQuestions();
+    displayQuestions();
+    displayHighScores();
   }
 }
 
