@@ -4,8 +4,15 @@ var bigText = document.getElementById('big-text');
 var questionsArea = document.getElementById('questions');
 var highScore = document.getElementById('high-scores');
 var mainArea = document.getElementById('main-area');
-
+var scoreArea = document.getElementById('score-area')
 var correctOrIncorrect = document.getElementById('check');
+
+//Intalize the number of scores saved 
+if (localStorage.getItem('scores') === null) {
+  localStorage.setItem('scores', ' ');
+}
+
+console.log(localStorage.getItem('scores'))
 
 // intalize the counter varible in the global scope
 var x = 0; 
@@ -22,16 +29,12 @@ var questionArr = [
     {q:  "How do you 'comment' in CSS?", c: ["!-", "//", "#", "/* */"], a: "/* */"}
 ]
 
-// Array which holds initials and scores
-
-
 // counter function which stops when counter reachers 5
 function counter() {
 
-
     if (x < 5) {
         x++;    
-        console.log(x);
+        //console.log(x);
     } else if (x === 4) {
         displayHighScores();
     }
@@ -63,19 +66,24 @@ function displayQuestions() {
 
 
 function displayHighScores() {
+    var numPlayers = Number(localStorage.getItem('players'));
 
+    console.log(numPlayers);
+
+    // after the last question switches to the submitting initials and score
     if (x === 5) {
     bigText.textContent = "Please enter your initials";
 
-    questionsArea.innerHTML += "<input type='text'>";
-    questionsArea.innerHTML += "<input type='text'>";
+    questionsArea.innerHTML += '<input type="text" id="name"/>';
+    questionsArea.innerHTML += "<button type='submit' id='btn-name' name='Submit'>" + "Submit" + "</button>";
 
-    correctOrIncorrect.textContent = " "
+    correctOrIncorrect.textContent = "Score:" + timeLeft;
 
     } else {
         return;
     }
 };
+
 
 // Timer that counts down from 180 seconds 
 function countdown() {
@@ -88,13 +96,17 @@ function countdown() {
 
     // setInterval()
     var timeInterval = setInterval(function() {
+        if (x === 5) {
+            clearInterval;
+            }   else {
         if (timeLeft > 0) {
             timerNum.textContent = timeLeft;
             timeLeft--;
-        } else {
+        }  else {
             timerNum.textContent = 'No more time left';
             clearInterval(timeInterval);
         }
+       }
     }, 
     1000
     );
@@ -145,10 +157,41 @@ var taskButtonHandler = function(event) {
   }
 }
 
+var buttonHandler = function(event) {
+    var targetEl = event.target;
+
+    if (targetEl.matches('#btn-name')) {
+        //var playerCount = Number(localStorage.getItem('players'));
+
+       // playerCount++;
+
+       // localStorage.setItem('players', String(playerCount));
+
+        var userName = document.getElementById('name').value;
+
+        userName += ' ' + String(timeLeft) + localStorage.getItem('scores') + ' ';
+
+        localStorage.setItem('scores', userName);
+        
+        showHighScores();
+    }
+
+ 
+}
+
+var showHighScores = function(event) {
+
+    scoreArea.textContent += localStorage.getItem('scores');
+
+}
+
 // adding an on click listenr to the start button
 startBtn.onclick = countdown;
 
+highScore.onclick = showHighScores;
+
 // listener to dynmically created html
 mainArea.addEventListener('click', taskButtonHandler);
+mainArea.addEventListener('click', buttonHandler);
 
 // highScore.onclick = 
