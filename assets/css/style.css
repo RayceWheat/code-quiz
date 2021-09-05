@@ -1,3 +1,11 @@
-.head {
-    display: inline;
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

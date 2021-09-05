@@ -1,54 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Quiz</title>
-    <link rel="stylesheet" href="./assets/css/style.css"/>
-</head>
-<body>
- <!-- 
-     Create code quiz 
-     click start button -> timer starts -> Questions pops up
-
-     After answering a question -> Another questions pops up
-     
-     IF answered incorrectly -> time is subtracted from the clock
-
-     WHEN all questions are answered OR timer reaches 0
-    -> then the game is over 
-
-    WHEN the game is over 
-    -> then I can save my intials and score
-
-    Highscores / Timer: 0 
-
-    Big text area 
-
-    questions area 
-
-    -
-    Correct or Incorrect area
-
- -->   
-  <div class="head">
-    <h4 id="high-scores">View High Scores</h4>
-    <h4 id="timer">Timer:</h4>
-    <h4 id="timer-numbers">0</h4>
-  </div>
-  <div>
-    <h3 id="score-area"></h3>
-  </div>
-  <div id="main-area">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Code Quiz</title>
+     <link rel="stylesheet" href="./assets/css/style.css"/>
+  </head>
+  <body>
+  <header class="flex-container">
+    <div>
+        <h4 id="high-scores">View High Scores</h4>
+   </div>
+    <div>
+        <h4 id="timer">Timer:</h4>
+        <h4 id="timer-numbers">0</h4>
+    </div>
+  </header>
+    <main>  
+   <div>
+     <h3 id="score-area"></h3>
+    </div>
+   <div id="main-area">
     <h1 id="big-text">Coding Quiz!</h1>
-        <div>
-            <p id="questions"></p>
-        </div>
-    <button id="start">Start</button>
-    <h3 id="check"></h3>
-  </div>
-
-  <script src="./assets/js/script.js"></script>
-</body>
+          <div>
+              <p id="questions"></p>
+          </div>
+      <button id="start">Start</button>
+      <h3 id="check"></h3>
+    </div>
+  </main>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
